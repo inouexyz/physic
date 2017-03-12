@@ -109,6 +109,7 @@
 					DBEA8AB31C02E98A0065DC6E = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 35AN996NRM;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -268,6 +269,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.visionsgate.physic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -279,6 +281,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.visionsgate.physic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -301,6 +304,7 @@
 				DBEA8ACC1C02E98A0065DC6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

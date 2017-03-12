@@ -30,10 +30,10 @@ class GameScene: SKScene {
     
     var player:[AVAudioPlayer] = [] // 複数の音を使うので配列にする
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
         // 物理シミュレーション
-        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame) // 空間は画面サイズ
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame) // 空間は画面サイズ
         // 反発力
         self.physicsBody?.restitution = 1.1
         // 摩擦力
@@ -62,9 +62,9 @@ class GameScene: SKScene {
     func newQuestion() {
         
         // 問題番号を決める
-        questionNo = randomSource.nextIntWithUpperBound(correct.count)
+        questionNo = randomSource.nextInt(upperBound: correct.count)
         // 間違い番号を決める
-        mistakeNo = randomSource.nextIntWithUpperBound(ballMax)
+        mistakeNo = randomSource.nextInt(upperBound: ballMax)
         
         // ボールの配列
         ballList = []
@@ -74,7 +74,7 @@ class GameScene: SKScene {
             
             // ボールの生成
             let ball = SKShapeNode(circleOfRadius: 50)
-            ball.fillColor = UIColor.whiteColor()
+            ball.fillColor = UIColor.white
  //           ball.position = CGPoint(x:loopID * 100 + 125, y: 1100)
             
             // シーンに表示
@@ -97,7 +97,7 @@ class GameScene: SKScene {
             
             // 漢字の設定
             kanji.fontSize = 70
-            kanji.fontColor = UIColor.blueColor()
+            kanji.fontColor = UIColor.blue
             kanji.position = CGPoint(x: 0, y: -25)
             ball.addChild(kanji)
             
@@ -115,8 +115,8 @@ class GameScene: SKScene {
 */
             // 物理シミュレーション用
             // 表示位置
-            let wx = randomSource.nextIntWithUpperBound(440) + 150
-            let wy = randomSource.nextIntWithUpperBound(200) + 1100
+            let wx = randomSource.nextInt(upperBound: 440) + 150
+            let wy = randomSource.nextInt(upperBound: 200) + 1100
             ball.position = CGPoint(x: wx, y: wy)
             ball.physicsBody = SKPhysicsBody(circleOfRadius: 50) // 物理シミュレーション上の大きさ
             // 反発力
@@ -128,11 +128,11 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
         for touch in touches {
-            let location = touch.locationInNode(self)
-            let touchNodes = self.nodesAtPoint(location)
+            let location = touch.location(in: self)
+            let touchNodes = self.nodes(at: location)
             
             for tNode in touchNodes {
                 
@@ -147,11 +147,11 @@ class GameScene: SKScene {
         }
     }
    
-    func answerCheck(No:Int) {
+    func answerCheck(_ No:Int) {
         
         if No == mistakeNo {
             msg = "「\(mistake[questionNo])」を発見！(∩´∀｀)∩ﾜｰｲ"
-            cnt++
+            cnt += 1
             if cnt > 1 {
                 msg2 = "\(cnt)回連続で成功中！"
             }
@@ -172,16 +172,16 @@ class GameScene: SKScene {
         newQuestion()
     }
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
     }
     
-    func makeAudioPlayer(res:String) -> AVAudioPlayer? {
-        let path = NSBundle.mainBundle().pathForResource(res, ofType: "")
-        let url = NSURL.fileURLWithPath(path!)
+    func makeAudioPlayer(_ res:String) -> AVAudioPlayer? {
+        let path = Bundle.main.path(forResource: res, ofType: "")
+        let url = URL(fileURLWithPath: path!)
         
         do {
-            return try AVAudioPlayer(contentsOfURL: url)
+            return try AVAudioPlayer(contentsOf: url)
         } catch _ {
             return nil
         }
